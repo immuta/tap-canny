@@ -88,13 +88,19 @@ class BoardsStream(CannyStream):
     replication_key = "created"
 
     schema = PropertiesList(
-        Property("id", StringType),
-        Property("created", DateTimeType),
-        Property("isPrivate", BooleanType),
-        Property("name", StringType),
-        Property("postCount", IntegerType),
-        Property("token", StringType),
-        Property("url", StringType),
+        Property("boards", 
+                ArrayType(
+                    ObjectType(
+                        Property("id", StringType),
+                        Property("created", DateTimeType),
+                        Property("isPrivate", BooleanType),
+                        Property("name", StringType),
+                        Property("postCount", IntegerType),
+                        Property("token", StringType),
+                        Property("url", StringType),
+                    )
+                )
+        ),
     ).to_dict()
 
 
@@ -108,9 +114,82 @@ class ChangelogEntriesStream(CannyStream):
     primary_keys = ["id"]
     replication_key = "lastSaved"
 
-    #need to understand structure
-    """   schema = PropertiesList(
-    ).to_dict()"""
+    schema = PropertiesList(
+        Property("entries", 
+                ArrayType(
+                    ObjectType(
+                        Property("id", StringType),
+                        Property("created", DateTimeType),
+                        Property("labels", ArrayType(StringType)),
+                        Property("lastSaved", DateTimeType),
+                        Property("markdownDetails", StringType),
+                        Property("plaintextDetails", StringType),
+                        Property("posts",
+                                ArrayType(
+                                    ObjectType(
+                                        Property("category",
+                                                ObjectType(
+                                                    Property("id", StringType),
+                                                    Property("name", StringType),
+                                                    Property("postCount", IntegerType),
+                                                    Property("url", StringType),
+                                                )
+                                        ),
+                                        Property("commentCount", IntegerType),
+                                        Property("id", StringType),
+                                        Property("imageURLs", ArrayType(StringType)),
+                                        Property("jira",
+                                                ObjectType(
+                                                    Property("linkedIssues",
+                                                            ArrayType(
+                                                                ObjectType(
+                                                                    Property("id", StringType),
+                                                                    Property("key", StringType),
+                                                                    Property("url", StringType),
+                                                                )
+                                                            )
+                                                    )
+                                                )
+                                        ),
+                                        Property("score", IntegerType),
+                                        Property("status", StringType),
+                                        Property("tags", 
+                                                ArrayType(
+                                                    ObjectType(
+                                                        Property("id", StringType),
+                                                        Property("board",
+                                                                ObjectType(
+                                                                    Property("id", StringType),
+                                                                    Property("created", DateTimeType),
+                                                                    Property("isPrivate", BooleanType),
+                                                                    Property("name", StringType),
+                                                                    Property("postCount", IntegerType),
+                                                                    Property("token", StringType),
+                                                                    Property("url", StringType),
+                                                                )
+                                                        ),
+                                                        Property("created", DateTimeType),
+                                                        Property("name", StringType),
+                                                        Property("postCount", IntegerType),
+                                                        Property("url", StringType),
+                                                    )
+                                                )
+                                        ),
+                                        Property("title", StringType),
+                                        Property("url", StringType),
+                                    )
+                                )
+                        ),
+                        Property("publishedAt", DateTimeType),
+                        Property("scheduledFor", DateTimeType),
+                        Property("status", StringType),
+                        Property("title", StringType),
+                        Property("types", ArrayType(StringType)),
+                        Property("url", StringType),
+                    )
+                )
+        ),
+    ).to_dict()
 
 class CommentsStream(CannyStream):
     """Comments stream class."""
@@ -166,12 +245,29 @@ class TagsStream(CannyStream):
     replication_key = "created"
 
     schema = PropertiesList(
-        Property("id", StringType),
-        Property("board", ObjectType),
-        Property("created", DateTimeType),
-        Property("name", StringType),
-        Property("postCount", IntegerType),
-        Property("url", StringType),
+        Property("hasMore", BooleanType),
+        Property("tags", 
+                ArrayType(
+                    ObjectType(
+                        Property("id", StringType),
+                        Property("board",
+                                ObjectType(
+                                    Property("id", StringType),
+                                    Property("created", DateTimeType),
+                                    Property("isPrivate", BooleanType),
+                                    Property("name", StringType),
+                                    Property("postCount", IntegerType),
+                                    Property("token", StringType),
+                                    Property("url", StringType),
+                                )
+                        ),
+                        Property("created", DateTimeType),
+                        Property("name", StringType),
+                        Property("postCount", IntegerType),
+                        Property("url", StringType),
+                    )
+                )
+        ),
     ).to_dict()
 
 
@@ -186,11 +282,108 @@ class VotesStream(CannyStream):
     replication_key = "created"
 
     schema = PropertiesList(
-        Property("id", StringType),
-        Property("board", ObjectType),
-        Property("by", ObjectType),
-        Property("created", DateTimeType),
-        Property("post", ObjectType),
-        Property("voter", ObjectType),
-        Property("zenDeskTicket", ObjectType),
+        Property("hasMore", BooleanType),
+        Property("votes",
+                ArrayType(
+                    ObjectType(
+                        Property("id", StringType),
+                        Property("board",
+                            ObjectType(
+                                Property("id", StringType),
+                                Property("created", DateTimeType),
+                                Property("isPrivate", BooleanType),
+                                Property("name", StringType),
+                                Property("postCount", IntegerType),
+                                Property("token", StringType),
+                                Property("url", StringType),
+                        )),
+                        Property("by", 
+                                ObjectType(
+                                    Property("id", StringType),
+                                    Property("created", DateTimeType),
+                                    Property("isPrivate", BooleanType),
+                                    Property("name", StringType),
+                                    Property("postCount", IntegerType),
+                                    Property("token", StringType),
+                                    Property("url", StringType),
+                                )
+                        ),
+                        Property("created", DateTimeType),
+                        Property("post",
+                                ObjectType(
+                                    Property("category",
+                                            ObjectType(
+                                                Property("id", StringType),
+                                                Property("name", StringType),
+                                                Property("postCount", IntegerType),
+                                                Property("url", StringType),
+                                            )
+                                    ),
+                                    Property("commentCount", IntegerType),
+                                    Property("id", StringType),
+                                    Property("imageURLs", ArrayType(StringType)),
+                                    Property("jira",
+                                            ObjectType(
+                                                Property("linkedIssues",
+                                                        ArrayType(
+                                                            ObjectType(
+                                                                Property("id", StringType),
+                                                                Property("key", StringType),
+                                                                Property("url", StringType),
+                                                            )
+                                                        )
+                                                )
+                                            )
+                                    ),
+                                    Property("score", IntegerType),
+                                    Property("status", StringType),
+                                    Property("tags", 
+                                            ArrayType(
+                                                ObjectType(
+                                                    Property("id", StringType),
+                                                    Property("board",
+                                                            ObjectType(
+                                                                Property("id", StringType),
+                                                                Property("created", DateTimeType),
+                                                                Property("isPrivate", BooleanType),
+                                                                Property("name", StringType),
+                                                                Property("postCount", IntegerType),
+                                                                Property("token", StringType),
+                                                                Property("url", StringType),
+                                                            )
+                                                    ),
+                                                    Property("created", DateTimeType),
+                                                    Property("name", StringType),
+                                                    Property("postCount", IntegerType),
+                                                    Property("url", StringType),
+                                                )
+                                            )
+                                    ),
+                                    Property("title", StringType),
+                                    Property("url", StringType),
+                                )
+                        ),
+                        Property("voter", 
+                                ObjectType(
+                                    Property("id", StringType),
+                                    Property("created", DateTimeType),
+                                    Property("isPrivate", BooleanType),
+                                    Property("name", StringType),
+                                    Property("postCount", IntegerType),
+                                    Property("token", StringType),
+                                    Property("url", StringType),
+                                )
+                        ),
+                        Property("zenDeskTicket",
+                                ObjectType(
+                                    Property("url", StringType),
+                                    Property("id", IntegerType),
+                                    Property("created", DateTimeType),
+                                    Property("subject", StringType),
+                                    Property("description", StringType),
+                                )
+                        ),
+                    )
+                )
+            ),
     ).to_dict()
