@@ -34,7 +34,8 @@ class CannyStream(RESTStream):
     """Canny stream class."""
 
     url_base = "https://canny.io/api/v1"
-
+    rest_method = "POST"
+    response_result_key = None
 
     def get_url_params(
         self,
@@ -49,37 +50,40 @@ class CannyStream(RESTStream):
         params = {}
         return params
 
+    def prepare_request_payload(
+        self, partition: Optional[dict], next_page_token: Optional[Any] = None
+    ) -> Optional[dict]:
+        """Prepare the data payload for the REST API request.
+
+        By default, no payload will be sent (return None).
+        """
+        return {"apiKey": self.config.get("api_key")}
 
 
-    @property
-    def authenticator(self) -> APIAuthenticatorBase:
-        return SimpleAuthenticator(
-            stream=self,
-            # Needs to be query parameter instead of header
-            auth_headers={
-                "apiKey": self.config.get("api_key")
-            }
-        )
+    def parse_response(self, response: requests.Response) -> Iterable[dict]:
+        """Parse the response and return an iterator of result rows."""
+        resp_json = response.json()
 
-    # Alternatively, you can pass auth tokens directly within http_headers:
-    # @property
-    # def http_headers(self) -> dict:
-    #     headers = {}
-    #     if "user_agent" in self.config:
-    #         headers["User-Agent"] = self.config.get("user_agent")
-    #     headers["Private-Token"] = self.config.get("auth_token")
-    #     return headers
+        # if records are nested under a certain key, extract the records
+        if self.response_result_key:
+            resp_json = resp_json[self.response_result_key]
+
+        if isinstance(resp_json, dict):
+            yield resp_json
+        else:
+            for row in resp_json:
+                yield row
+
 
 
 class BoardsStream(CannyStream):
     """Boards stream class."""
 
     name = "boards"
-
     path = "/boards/list"
-
     primary_keys = ["id"]
     replication_key = "created"
+    response_result_key = "boards"
 
     schema = PropertiesList(
         Property("id", StringType),
