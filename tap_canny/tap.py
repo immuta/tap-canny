@@ -17,7 +17,7 @@ from singer_sdk.typing import (
 )
 
 # TODO: Import your custom stream types here:
-from tap-canny.streams import (
+from tap_canny.streams import (
     CannyStream,
     BoardsStream,
     PostsStream,
@@ -43,10 +43,8 @@ class TapCanny(Tap):
 
     # TODO: Update this section with the actual config values you expect:
     config_jsonschema = PropertiesList(
-        Property("auth_token", StringType, required=True),
-        Property("project_ids", ArrayType(StringType), required=True),
+        Property("api_key", StringType, required=True),
         Property("start_date", DateTimeType),
-        Property("api_url", StringType, default="https://canny.io/api/v1"),
     ).to_dict()
 
 
