@@ -1,0 +1,88 @@
+{
+  "type": "object",
+  "properties": {
+    "id": { "type": "string" },
+    "author": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "created": { "type": "string" },
+        "email": { "type": "string" },
+        "isAdmin": { "type": "boolean" },
+        "name": { "type": "string" },
+        "url": { "type": "string" },
+        "userID": { "type": "string" }
+      }
+    },
+    "board": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "created": { "type": "string" },
+        "isPrivate": { "type": "boolean" },
+        "name": { "type": "string" },
+        "postCount": { "type": "integer" },
+        "token": { "type": "string" },
+        "url": { "type": "string" }
+      }
+    },
+    "category": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "postCount": { "type": "integer" },
+        "url": { "type": "string" }
+      }
+    },
+    "commentCount": { "type": "integer" },
+    "created": { "type": "string" },
+    "details": { "type": "string" },
+    "eta": { "type": "string" },
+    "imageURLs": { "type": "array", "items": { "type": "string" } },
+    "jira": {
+      "type": "object",
+      "properties": {
+        "linkedIssues": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "key": { "type": "string" },
+              "url": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "owner": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "created": { "type": "string" },
+        "email": { "type": "string" },
+        "isAdmin": { "type": "boolean" },
+        "name": { "type": "string" },
+        "url": { "type": "string" },
+        "userID": { "type": "string" }
+      }
+    },
+    "score": { "type": "integer" },
+    "status": { "type": "string" },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "postCount": { "type": "integer" },
+          "url": { "type": "string" }
+        }
+      }
+    },
+    "title": { "type": "string" },
+    "url": { "type": "string" }
+  }
+}

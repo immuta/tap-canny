@@ -1,0 +1,22 @@
+{
+  "type": "object",
+  "properties": {
+    "id": { "type": "string" },
+    "board": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "created": { "type": "string" },
+        "isPrivate": { "type": "boolean" },
+        "name": { "type": "string" },
+        "postCount": { "type": "integer" },
+        "token": { "type": "string" },
+        "url": { "type": "string" }
+      }
+    },
+    "created": { "type": "string" },
+    "name": { "type": "string" },
+    "postCount": { "type": "integer" },
+    "url": { "type": "string" }
+  }
+}
