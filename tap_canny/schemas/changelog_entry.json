@@ -1,0 +1,70 @@
+{
+  "type": "object",
+  "properties": {
+    "id": { "type": "string" },
+    "created": { "type": "string" },
+    "labels": { "type": "array" },
+    "lastSaved": { "type": "string" },
+    "markdownDetails": { "type": "string" },
+    "plaintextDetails": { "type": "string" },
+    "posts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "name": { "type": "string" },
+              "postCount": { "type": "integer" },
+              "url": { "type": "string" }
+            }
+          },
+          "commentCount": { "type": "integer" },
+          "eta": { "type": "string" },
+          "id": { "type": "string" },
+          "imageURLs": { "type": "array", "items": { "type": "string" } },
+          "jira": {
+            "type": "object",
+            "properties": {
+              "linkedIssues": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "string" },
+                    "key": { "type": "string" },
+                    "url": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+          "score": { "type": "integer" },
+          "status": { "type": "string" },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string" },
+                "name": { "type": "string" },
+                "postCount": { "type": "integer" },
+                "url": { "type": "string" }
+              }
+            }
+          },
+          "title": { "type": "string" },
+          "url": { "type": "string" }
+        }
+      }
+    },
+    "publishedAt": { "type": "string" },
+    "scheduledFor": { "type": "null" },
+    "status": { "type": "string" },
+    "title": { "type": "string" },
+    "types": { "type": "array", "items": { "type": "string" } },
+    "url": { "type": "string" }
+  }
+}

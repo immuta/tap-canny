@@ -1,0 +1,12 @@
+{
+  "type": "object",
+  "properties": {
+    "id": { "type": "string" },
+    "created": { "type": "string" },
+    "isPrivate": { "type": "boolean" },
+    "name": { "type": "string" },
+    "postCount": { "type": "integer" },
+    "token": { "type": "string" },
+    "url": { "type": "string" }
+  }
+}
