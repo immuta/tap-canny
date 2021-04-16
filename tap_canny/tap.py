@@ -6,7 +6,6 @@ from typing import List
 from singer_sdk import Tap, Stream
 from singer_sdk.typing import (
     DateTimeType,
-    IntegerType,
     PropertiesList,
     Property,
     StringType,
@@ -40,7 +39,7 @@ class TapCanny(Tap):
 
     config_jsonschema = PropertiesList(
         Property("api_key", StringType, required=True),
-        Property("limit", IntegerType),
+        Property("limit", StringType),
         Property("start_date", DateTimeType),
     ).to_dict()
 
