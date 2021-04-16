@@ -7,7 +7,8 @@ from typing import Any, Dict, Optional, Iterable
 from singer_sdk.streams import RESTStream
 
 SCHEMAS_DIR = Path(__file__).parent / Path("./schemas")
-
+#Max amount of records that will be returned in an api call
+RECORD_LIMIT = 99999
 
 class CannyStream(RESTStream):
     """Canny stream class."""
@@ -21,7 +22,7 @@ class CannyStream(RESTStream):
         partition: Optional[dict],
         next_page_token: Optional[Any] = None
     ) -> Dict[str, Any]:
-        return {"limit": self.config.get("limit")}
+        return {"limit": RECORD_LIMIT}
 
     def prepare_request_payload(
         self, partition: Optional[dict], next_page_token: Optional[Any] = None

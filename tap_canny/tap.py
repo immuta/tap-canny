@@ -39,7 +39,6 @@ class TapCanny(Tap):
 
     config_jsonschema = PropertiesList(
         Property("api_key", StringType, required=True),
-        Property("limit", StringType),
         Property("start_date", DateTimeType),
     ).to_dict()
 
