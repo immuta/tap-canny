@@ -60,7 +60,7 @@ class BoardsStream(CannyStream):
 class ChangelogEntriesStream(CannyStream):
     """Changelog Entries stream class."""
 
-    name = "changelog entries"
+    name = "changelog_entries"
     path = "/entries/list"
     primary_keys = ["id"]
     replication_key = "lastSaved"
@@ -95,7 +95,7 @@ class PostsStream(CannyStream):
 class StatusChangesStream(CannyStream):
     """Status Changes stream class."""
 
-    name = "status changes"
+    name = "status_changes"
     path = "/status_changes/list"
     primary_keys = ["id"]
     replication_key = "created"
